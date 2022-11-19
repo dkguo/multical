@@ -76,8 +76,10 @@ class Camera(Parameters):
                 cv2.TERM_CRITERIA_MAX_ITER, max_iter, eps)
     flags = Camera.flags(model, fix_aspect) | flags
 
-    err, K, dist, _, _ = cv2.calibrateCamera(points.object_points,
-            points.corners, image_size, None, None, criteria=criteria, flags=flags)
+    obj_points = [np.array(pts, dtype=np.float32) for pts in points.object_points]
+    corners = [np.array(pts, dtype=np.float32)[:, np.newaxis, :] for pts in points.corners]
+    err, K, dist, _, _ = cv2.calibrateCamera(obj_points, corners, image_size, None, None, criteria=criteria,
+                                             flags=flags)
 
     return Camera(intrinsic=K, dist=dist, image_size=image_size,
                   model=model, fix_aspect=fix_aspect, has_skew=has_skew), err
