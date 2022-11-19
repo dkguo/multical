@@ -4,8 +4,8 @@ boards:
     size: [5, 7]
     aruco_dict: 4X4_1000
 
-    square_length: 0.04
-    marker_length: 0.03
+    square_length: 0.038
+    marker_length: 0.028
 
     min_rows: 3
     min_points: 10
@@ -16,8 +16,8 @@ boards:
     aruco_dict: 4X4_1000
     aruco_offset: 20
 
-    square_length: 0.04
-    marker_length: 0.03
+    square_length: 0.0375
+    marker_length: 0.0275
 
     min_rows: 2
     min_points: 5
@@ -28,8 +28,8 @@ boards:
     aruco_dict: 4X4_1000
     aruco_offset: 30
 
-    square_length: 0.04
-    marker_length: 0.03
+    square_length: 0.0375
+    marker_length: 0.0275
 
     min_rows: 2
     min_points: 5
@@ -40,8 +40,8 @@ boards:
     aruco_dict: 4X4_1000
     aruco_offset: 40
 
-    square_length: 0.04
-    marker_length: 0.03
+    square_length: 0.0375
+    marker_length: 0.0275
 
     min_rows: 2
     min_points: 5
@@ -52,8 +52,8 @@ boards:
     aruco_dict: 4X4_1000
     aruco_offset: 50
 
-    square_length: 0.04
-    marker_length: 0.03
+    square_length: 0.0375
+    marker_length: 0.0275
 
     min_rows: 2
     min_points: 5
@@ -64,8 +64,8 @@ boards:
     aruco_dict: 4X4_1000
     aruco_offset: 60
 
-    square_length: 0.04
-    marker_length: 0.03
+    square_length: 0.0375
+    marker_length: 0.0275
 
     min_rows: 2
     min_points: 5
@@ -76,8 +76,8 @@ boards:
     aruco_dict: 4X4_1000
     aruco_offset: 70
 
-    square_length: 0.04
-    marker_length: 0.03
+    square_length: 0.0375
+    marker_length: 0.0275
 
     min_rows: 2
     min_points: 5
