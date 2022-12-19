@@ -70,8 +70,8 @@ def calibrate_intrinsic(args):
     detected_points = detect_boards_cached(boards, images, 
         paths.detections, cache_key, j=args.runtime.num_threads)
 
-    cameras, errs = calibrate_cameras(boards, detected_points, image_sizes,  
-      model=args.camera.distortion_model, fix_aspect= args.camera.fix_aspect, max_images= args.camera.limit_intrinsic)
+    cameras, errs = calibrate_cameras(boards, detected_points, image_sizes,
+                                      model=args.camera_name.distortion_model, fix_aspect= args.camera_name.fix_aspect, max_images= args.camera_name.limit_intrinsic)
      
     for name, camera, err in zip(camera_images.cameras, cameras, errs):
         info(f"Calibrated {name}, with RMS={err:.2f}")

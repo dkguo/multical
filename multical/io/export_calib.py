@@ -86,11 +86,11 @@ def export_json(calib, names, filenames, master=None):
   filenames = transpose_lists(filenames)
 
   data = struct(
-    cameras = export_cameras(names.camera, calib.cameras),
+    cameras = export_cameras(names.camera_name, calib.cameras),
     # camera_poses = export_sequential(names.camera, camera_poses),
-    camera_poses = export_camera_poses(names.camera, camera_poses)\
-      if master is None else export_relative(names.camera, camera_poses, master),
-    image_sets = export_images(names.camera, filenames)
+    camera_poses = export_camera_poses(names.camera_name, camera_poses)\
+      if master is None else export_relative(names.camera_name, camera_poses, master),
+    image_sets = export_images(names.camera_name, filenames)
 
   )
 

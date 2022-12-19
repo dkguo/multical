@@ -19,7 +19,7 @@ def vtk_transform(t):
   return transform
 
 def save_viewport(plotter):
-    viewport = plotter.camera
+    viewport = plotter.camera_name
 
     return struct(
         position = viewport.GetPosition(),
@@ -31,7 +31,7 @@ def save_viewport(plotter):
     )   
 
 def set_viewport(plotter, camera):
-    viewport = plotter.camera
+    viewport = plotter.camera_name
 
     viewport.SetPosition(*camera.position)
     viewport.SetFocalPoint(*camera.focal_point)

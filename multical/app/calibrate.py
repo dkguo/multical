@@ -34,7 +34,7 @@ def calibrate(args):
   camera_images = find_camera_images(args.paths.image_path, 
     args.paths.cameras, args.paths.camera_pattern, limit=args.paths.limit_images)
 
-  initialise_with_images(ws, boards, camera_images, args.camera, args.runtime)
+  initialise_with_images(ws, boards, camera_images, args.camera_name, args.runtime)
   optimize(ws, args.optimizer)
 
   ws.export()
