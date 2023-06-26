@@ -184,13 +184,13 @@ def table_info( valid, names):
     n = count_valid(valid, axes=axes)
     return dict(zip(names, n))
 
-  camera_points = named_counts(names.camera_name, [0])
+  camera_points = named_counts(names.camera, [0])
   board_points = named_counts(names.board, [2])
 
   info(f"Total: {count_valid(valid)}, cameras: {camera_points}, " 
        f"Boards: {board_points}")
 
-  if len(names.camera_name) > 1 and len(names.board) > 1:
+  if len(names.camera) > 1 and len(names.board) > 1:
     board_points = count_valid(valid, axes=[0, 2])
     info("Camera-board matrix")
     info(board_points)
@@ -221,7 +221,7 @@ def estimate_relative_poses_inv(table, axis=2, hop_penalty=0.9):
 
 
 def valid(estimates, point_table):
-  valid = (np.expand_dims(estimates.camera_name.valid, [1, 2]) &
+  valid = (np.expand_dims(estimates.camera.valid, [1, 2]) &
            np.expand_dims(estimates.times.valid, [0, 2]) &
            np.expand_dims(estimates.board.valid, [0, 1]))
 
@@ -293,7 +293,7 @@ def expand(table, dims):
 
 
 def expand_views(estimates):
-  return multiply_expand(estimates.camera_name, 1, estimates.times, 0)
+  return multiply_expand(estimates.camera, 1, estimates.times, 0)
 
 def expand_boards(estimates):
   return multiply_expand(estimates.times, 1, estimates.board, 0) 

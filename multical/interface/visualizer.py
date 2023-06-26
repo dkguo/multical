@@ -194,7 +194,7 @@ class Visualizer(QtWidgets.QMainWindow):
       for record in workspace.log_entries:
         self.log_viewer.insertPlainText(record.message + "\n")
 
-      self.params_viewer.init(self.workspace.names.camera_name)
+      self.params_viewer.init(self.workspace.names.camera)
 
       self.calibrations = self.workspace.get_calibrations()
       self.update_calibrations(self.calibrations)
@@ -244,7 +244,7 @@ class Visualizer(QtWidgets.QMainWindow):
         frame=frame,
         camera=camera,
         scale=self.camera_size(),
-        camera_name=names.camera_name[camera],
+        camera_name=names.camera[camera],
         image_name=names.image[frame],
         image=images[camera][frame]
     )
@@ -259,7 +259,7 @@ class Visualizer(QtWidgets.QMainWindow):
     sizes = self.workspace.sizes
 
     frame, camera = self.selection()
-    self.select(frame, (camera + d_camera) % sizes.camera_name)
+    self.select(frame, (camera + d_camera) % sizes.camera)
 
   @if_ready
   @void

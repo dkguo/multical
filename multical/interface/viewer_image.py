@@ -134,7 +134,7 @@ def annotate_image(workspace, calibration, layer, state, options):
   pixmap = QPixmap(qt_image(image))
   scene.addPixmap(pixmap)
 
-  detections = workspace.point_table._index[state.camera_name, state.frame]
+  detections = workspace.point_table._index[state.camera, state.frame]
   if layer == "detections":
 
     for board, color, points in zip(workspace.boards, workspace.board_colors, detections._sequence(0)):
@@ -143,15 +143,15 @@ def annotate_image(workspace, calibration, layer, state, options):
   elif layer == "reprojection":
 
     assert calibration is not None
-    projected = calibration.projected._index[state.camera_name, state.frame]
-    inliers = calibration.inliers[state.camera_name, state.frame]
+    projected = calibration.projected._index[state.camera, state.frame]
+    inliers = calibration.inliers[state.camera, state.frame]
     valid_boards = calibration.pose_estimates.board.valid
 
     add_reprojections(scene, detections, projected, inliers, workspace.boards, valid_boards, options)
 
   elif layer == "detected_poses":
-    board_poses = workspace.pose_table._index[state.camera_name, state.frame]
-    camera = workspace.initialisation.cameras[state.camera_name]
+    board_poses = workspace.pose_table._index[state.camera, state.frame]
+    camera = workspace.initialisation.cameras[state.camera]
 
     for board, pose, color in zip(workspace.boards, board_poses._sequence(0), workspace.board_colors):
       if pose.valid:

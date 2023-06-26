@@ -36,7 +36,7 @@ class MovingCameras(object):
   def update(self, state):
     self.meshes.set_camera_scale(state.scale)
     for i, camera_set in enumerate(self.camera_sets):
-      camera_set.update(active=(i == state.frame), highlight=state.camera_name)
+      camera_set.update(active=(i == state.frame), highlight=state.camera)
 
     self.axis_set.update_poses(self.view_poses._index[:, state.frame])
     self.viewer.update()

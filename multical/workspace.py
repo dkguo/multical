@@ -123,10 +123,10 @@ class Workspace:
             self.filenames, j=j, prefix=self.image_path)
         self.image_size = map_list(common_image_size, self.images)
 
-        info(f"Loaded {self.sizes.image * self.sizes.camera_name} images")
+        info(f"Loaded {self.sizes.image * self.sizes.camera} images")
         info(
             {k: image_size for k, image_size in zip(
-                self.names.camera_name, self.image_size)})
+                self.names.camera, self.image_size)})
 
               
     @property 
@@ -151,20 +151,20 @@ class Workspace:
         tables.table_info(self.point_table.valid, self.names)
 
     def set_calibration(self, cameras):
-      assert set(self.names.camera_name) == set(cameras.keys()),\
+      assert set(self.names.camera) == set(cameras.keys()),\
          f"set_calibration: cameras don't match"\
-         f"{set(self.names.camera_name)} vs. {set(cameras.keys())}"
+         f"{set(self.names.camera)} vs. {set(cameras.keys())}"
 
-      self.cameras = [cameras[k] for k in self.names.camera_name]
+      self.cameras = [cameras[k] for k in self.names.camera]
       info("Cameras set...")
-      for name, camera in zip(self.names.camera_name, self.cameras):
+      for name, camera in zip(self.names.camera, self.cameras):
           info(f"{name} {camera}")
           info("")
 
     def calibrate_single(self, camera_model, fix_aspect=False, has_skew=False, max_images=None, isFisheye=False):
         assert self.detected_points is not None, "calibrate_single: no points found, first use detect_boards to find corner points"
 
-        check_detections(self.names.camera_name, self.boards, self.detected_points)
+        check_detections(self.names.camera, self.boards, self.detected_points)
 
         info("Calibrating single cameras..")
         if not isFisheye:
@@ -186,7 +186,7 @@ class Workspace:
                 has_skew=has_skew,
                 max_images=max_images)
 
-        for name, camera, err in zip(self.names.camera_name, self.cameras, errs):
+        for name, camera, err in zip(self.names.camera, self.cameras, errs):
             info(f"Calibrated {name}, with RMS={err:.2f}")
             info(camera)
             info("")
@@ -199,14 +199,14 @@ class Workspace:
         tables.table_info(self.pose_table.valid, self.names)
 
         pose_init = tables.initialise_poses(self.pose_table, 
-          camera_poses=None if camera_poses is None else np.array([camera_poses[k] for k in self.names.camera_name])
+          camera_poses=None if camera_poses is None else np.array([camera_poses[k] for k in self.names.camera])
         )
 
         calib = Calibration(
-            ParamList(self.cameras, self.names.camera_name),
+            ParamList(self.cameras, self.names.camera),
             ParamList(self.boards, self.names.board),
             self.point_table,
-            PoseSet(pose_init.camera_name, self.names.camera_name),
+            PoseSet(pose_init.camera, self.names.camera),
             PoseSet(pose_init.board, self.names.board),
             motion_model.init(pose_init.times, self.names.image),
         )
@@ -273,10 +273,10 @@ class Workspace:
             return dict(initialisation=self.cameras)
 
     def export_json(self, master=None):
-        master = master or self.names.camera_name[0]
+        master = master or self.names.camera[0]
         assert (
-            master is None or master in self.names.camera_name
-        ), f"master f{master} not found in cameras f{str(self.names.camera_name)}"
+            master is None or master in self.names.camera
+        ), f"master f{master} not found in cameras f{str(self.names.camera)}"
 
         calib = self.latest_calibration
         if master is not None:

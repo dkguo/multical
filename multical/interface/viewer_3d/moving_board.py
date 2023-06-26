@@ -14,7 +14,7 @@ class MovingBoard(object):
     self.board_colors = board_colors
     self.meshes = SceneMeshes(calib)
 
-    camera_poses = tables.inverse(calib.pose_estimates.camera_name)
+    camera_poses = tables.inverse(calib.pose_estimates.camera)
     self.camera_set = CameraSet(self.viewer, camera_poses, self.meshes.camera)
 
     board_poses = tables.expand_boards(calib.pose_estimates)
@@ -29,7 +29,7 @@ class MovingBoard(object):
     self.meshes.update(calib)
     
     board_poses = tables.expand_boards(calib.pose_estimates)
-    camera_poses = tables.inverse(calib.pose_estimates.camera_name)
+    camera_poses = tables.inverse(calib.pose_estimates.camera)
     self.camera_set.update_poses(camera_poses)
     self.axis_set.update_poses(camera_poses)
 
@@ -43,7 +43,7 @@ class MovingBoard(object):
 
   def update(self, state):
     self.meshes.set_camera_scale(state.scale)
-    self.camera_set.update(highlight=state.camera_name)
+    self.camera_set.update(highlight=state.camera)
     for i, board_set in enumerate(self.board_sets):
       board_set.update(active = i == state.frame)
 

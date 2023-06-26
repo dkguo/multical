@@ -151,7 +151,7 @@ class ViewModelCalibrated(QAbstractTableModel):
   def headerData(self, index, orientation, role):
     if role == Qt.DisplayRole:
       if orientation == Qt.Horizontal:
-        return self.names.camera_name[index]
+        return self.names.camera[index]
       else:
         return path.splitext(self.names.image[index])[0]
 
@@ -159,7 +159,7 @@ class ViewModelCalibrated(QAbstractTableModel):
     return len(self.names.image)
 
   def columnCount(self, index):
-    return len(self.names.camera_name)
+    return len(self.names.camera)
 
 
 class ViewModelDetections(QAbstractTableModel):
@@ -220,7 +220,7 @@ class ViewModelDetections(QAbstractTableModel):
   def headerData(self, index, orientation, role):
     if role == Qt.DisplayRole:
       if orientation == Qt.Horizontal:
-        return self.names.camera_name[index]
+        return self.names.camera[index]
       else:
         return path.splitext(self.names.image[index])[0]
 
